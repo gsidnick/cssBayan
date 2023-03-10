@@ -15,7 +15,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: center;
 }
 
 .accordion {
@@ -58,37 +57,41 @@ body {
 
 .accordion__radio {
   display: none;
+  width: 0;
+  height: 0;
 }
 
 .accordion__title-group {
+  color: #1890ff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  transition: all 0.2s linear;
+  transition: all 0.3s linear;
 }
 
 .accordion__title {
   font-size: 24px;
   font-weight: 600;
   display: block;
-  color: #1890ff;
-  transition: all 0.2s linear;
-}
-
-.accordion__list:hover .accordion__title {
-  color: #1a1a1a;
-}
-
-.accordion__radio:checked ~ .accordion__title-group {
-  color: #1a1a1a;
-  background-color: #faea68;
+  transition: all 0.3s linear;
 }
 
 .accordion__cross {
   width: 20px;
   height: 20px;
   display: block;
+  animation: spinOut 0.3s ease 0.3s both;
+  transition: opacity 0.3s linear;
+  opacity: 0;
+}
+
+.accordion__svg {
+  width: inherit;
+  height: inherit;
+  display: inherit;
+  fill: currentColor;
+  transition: all 0.3s linear;
 }
 
 .accordion__image-wrapper {
@@ -103,13 +106,6 @@ body {
   transition: all 0.6s ease 0.6s;
 }
 
-.accordion__item:hover .accordion__image-wrapper,
-.accordion__radio:checked ~ .accordion__image-wrapper {
-  height: 300px;
-  transition: all 0.6s ease;
-  max-height: 300px;
-}
-
 .accordion__image {
   width: 300px;
   height: 300px;
@@ -120,13 +116,45 @@ body {
   animation: fadeOutDown 0.6s ease both;
 }
 
+.accordion__item:hover .accordion__image-wrapper,
+.accordion__radio:checked ~ .accordion__image-wrapper {
+  height: 300px;
+  transition: all 0.6s ease;
+  max-height: 300px;
+}
+
+.accordion__radio:checked ~ .accordion__title-group {
+  background-color: #faea68;
+}
+
+.accordion__list:hover .accordion__cross {
+  opacity: 1;
+}
+
+.accordion__list:hover .accordion__title,
+.accordion__list:hover .accordion__cross,
+.accordion__radio:checked ~ .accordion__title-group .accordion__title,
+.accordion__radio:checked ~ .accordion__title-group .accordion__cross {
+  color: #1a1a1a;
+}
+
+.accordion__item:hover .accordion__cross,
+.accordion__radio:checked ~ .accordion__title-group .accordion__cross {
+  animation: spinIn 0.3s ease both;
+}
+
 .accordion__item:hover .accordion__image,
 .accordion__radio:checked ~ .accordion__image-wrapper .accordion__image {
   animation: fadeInUp 0.6s ease 0.3s both;
 }
 
-.accordion__radio:checked ~ .accordion__title-group .accordion__title {
-  color: #1a1a1a;
+.accordion__radio:checked:active ~ .accordion__title-group .accordion__title,
+.accordion__radio:checked:active ~ .accordion__title-group .accordion__cross {
+  color: #a1a1a1;
+}
+
+.accordion__radio:checked:active ~ .accordion__image-wrapper {
+  opacity: 0.5;
 }
 
 @keyframes fadeInUp {
@@ -148,5 +176,23 @@ body {
   100% {
     opacity: 0;
     transform: translateY(100px);
+  }
+}
+
+@keyframes spinIn {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes spinOut {
+  0% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(0);
   }
 }
