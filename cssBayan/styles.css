@@ -152,7 +152,8 @@ body {
   color: #a1a1a1;
 }
 
-.accordion__radio:checked:active ~ .accordion__image-wrapper {
+.accordion__radio:active ~ .accordion__title-group,
+.accordion__radio:active ~ .accordion__image-wrapper {
   opacity: 0.5;
 }
 
